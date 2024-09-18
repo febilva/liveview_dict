@@ -11,6 +11,7 @@ defmodule Bichu.Dict do
         malayalam_definition: malayalam_definition
       }
     end)
-    |> Enum.find(fn entry -> entry.english_entry == word end)
+    |> Seqfuzz.filter(word, fn x -> x.english_entry end)
+    |> Enum.take(5)
   end
 end

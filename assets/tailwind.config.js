@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        malayalam: ["Noto Sans Malayalam"]
+      },
       colors: {
         brand: "#FD4F00",
       }

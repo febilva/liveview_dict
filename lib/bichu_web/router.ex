@@ -19,6 +19,7 @@ defmodule BichuWeb.Router do
 
     get "/learn", PageController, :home
     live "/", HomeLive
+    live "/test", TestLive
   end
 
   # Other scopes may use custom stacks.

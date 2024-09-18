@@ -23,13 +23,23 @@ defmodule HomeLiveTest do
     # Assert that the form contains a button with the text "Search"
     assert has_element?(view, "button", "Search")
   end
-  
+
   test "search submit form with a word", %{conn: conn} do
     {:ok, view, _html} = live(conn, "/")
     view
       |> form("#dict-search", search: "tiger")
       |> render_submit() =~ "tigo"
-  end 
+  end
+
+  test "render results for a word", %{conn: conn} do
+    {:ok, view, _html} = live(conn, "/")
+    view
+      |> form("#dict-search", search: ".net")
+      |> render_submit()
+
+      open_browser(view)
+    assert has_element?(view, "p", ".net")
+  end
   # test "mounts the live view", %{conn: conn} do
 
   #
