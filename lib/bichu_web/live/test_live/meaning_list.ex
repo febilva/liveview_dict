@@ -17,9 +17,9 @@ defmodule BichuWeb.MeaningList do
           </li>
         <% end %> --%>
       </ul>
-      <.modal id="confirm-modal">
+      <%!-- <.modal id="confirm-modal">
         This is a modal.
-      </.modal>
+      </.modal> --%>
     </div>
     """
   end

@@ -4,7 +4,7 @@ defmodule BichuWeb.TestLive do
   def mount(_params, _session, socket) do
     socket =
       assign(socket, :meanings, [])
-      |> assign(:show_meanings_model, false)
+      |> assign(:show_meanings_modal, false)
 
     {:ok, assign(socket, :form, to_form(%{})), layout: false}
   end
@@ -49,7 +49,7 @@ defmodule BichuWeb.TestLive do
 
   def handle_event("show-meaning", %{"english-entry" => eng_entry}, socket) do
     # {:noreply, socket}
-    {:noreply, assign(socket, :show_meanings_model, true)}
+    {:noreply, assign(socket, :show_meanings_modal, true)}
   end
 
   def open_modal(js \\ %JS{}) do

@@ -31,7 +31,8 @@
     നിള
   </h1>
   <h3 class="pt-3 pb-5 text-2xl text-center text-zinc-500 font-malayalam" >മലയാളം നിഘണ്ടു</h3>
-  <.modal show={@show_meanings_model} id="confirm-modal">
+  <%= @show_meanings_modal %>
+  <.modal show={@show_meanings_modal} id="confirm-modal">
     This is a modal.
   </.modal>
   <div
@@ -81,6 +82,7 @@
             type="search"
             value=""
             tabindex="0"
+            autofocus=""
           />
         </div>
 
@@ -91,24 +93,35 @@
           role="listbox"
         >
           <%= for place <- @meanings do %>
-            <%!-- <li id={"#{place.english_entry}"}>
+            <li>
               <.link
                 phx-click="show-meaning"
-                ,
                 phx-value-english-entry={place.english_entry}
                 class="block p-4 hover:bg-slate-100 focus:outline-none focus:bg-slate-100 focus:text-sky-800"
               >
-                <%= place.english_entry %>
-                <span class="px-4 pb-4 text-sm text-gray-500 font-malayalam"> <%= place.malayalam_definition %></span>
+
+              <div class="flex items-start justify-between md:flex-row">
+                <!-- Word Section -->
+                <div class="w-full text-sm md:w-1/3">
+                  <%= place.english_entry %>
+                </div>
+
+                <!-- Meaning Section -->
+                <div class="w-full text-sm text-gray-600 md:w-2/3 font-malayalam">
+                  <%!-- <%= render_meaning(place, @expanded_meanings) %> --%>
+                  <span class="text-sm text-gray-500 font-malayalam"> <%= place.malayalam_definition %></span>
+                </div>
+              </div>
+                <%!-- <%= place.english_entry %> --%>
               </.link>
-            </li> --%>
+            </li>
           <% end %>
         </ul>
       </form>
     </div>
   </div>
 </div>
-<.live_component module={BichuWeb.MeaningList} id="meaning_list" />
+<%!-- <.live_component module={BichuWeb.MeaningList} id="meaning_list" /> --%>
 <%!-- </div> --%>
 
 <%!-- <div id="modal" class="modal">
