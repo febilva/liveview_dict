@@ -1,9 +1,9 @@
-defmodule Bichu.DictTest do
-  use Bichu.DataCase
+defmodule Olam.DictTest do
+  use Olam.DataCase
 
   describe "search/1" do
     test "search for a word which exists" do
-      assert Bichu.Dict.search(".net") == %{
+      assert Olam.Dict.search(".net") == %{
                english_entry: ".net",
                malayalam_definition: "പുത്തൻ കമ്പ്യൂട്ടർ സാങ്കേതികത ഭാഷ",
                part_of_speech: "{n}"
@@ -11,7 +11,7 @@ defmodule Bichu.DictTest do
     end
 
     test "search for a word which not exists" do
-      assert Bichu.Dict.search(".nett") == "tiger"
+      assert Olam.Dict.search(".nett") == "tiger"
     end
   end
 end

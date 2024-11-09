@@ -1,4 +1,4 @@
-# Bichu
+# Olam
 
 To start your Phoenix server:
 

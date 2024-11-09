@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Bichu.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Olam.Repo, :manual)

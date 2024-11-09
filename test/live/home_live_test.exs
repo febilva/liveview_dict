@@ -1,5 +1,5 @@
 defmodule HomeLiveTest do
-  use BichuWeb.ConnCase
+  use OlamWeb.ConnCase
   import Phoenix.LiveViewTest
 
   describe "/" do
