@@ -1,4 +1,4 @@
-<%!-- <div class="flex-auto block max-w-xs">
+<%!-- <div class="block flex-auto max-w-xs">
   <button
     type="button"
     class="hidden text-gray-500 bg-white hover:ring-gray-500 ring-gray-300 h-8 w-full items-center gap-2 rounded-md pl-2 pr-3 text-sm ring-1 transition lg:flex focus:[&:not(:focus-visible)]:outline-none"
@@ -18,16 +18,16 @@
 
 <%!-- <div
   id="searchbar-dialog"
-  class="fixed inset-0 z-50 "
+  class="fixed inset-0 z-50"
   role="dialog"
   aria-modal="true"
   phx-window-keydown={hide_modal()}
   phx-key="escape"
 > --%>
-<div class="fixed inset-0 opacity-100 bg-zinc-400/25 backdrop-blur-sm"></div>
+<div class="fixed inset-0 opacity-100 backdrop-blur-sm bg-zinc-400/25"></div>
 
 <div class="fixed inset-0 overflow-y-auto px-4 py-14 sm:py-20 sm:px-6 md:py-32 lg:px-8 lg:py-[15vh]">
-  <h1 class="font-extrabold text-center text-zinc-500 text-7xl font-malayalam">
+  <h1 class="text-7xl font-extrabold text-center text-green-800 font-malayalam">
     നിള
   </h1>
   <h3 class="pt-3 pb-5 text-2xl text-center text-zinc-500 font-malayalam" >മലയാളം നിഘണ്ടു</h3>
@@ -37,7 +37,7 @@
   </.modal>
   <div
     id="searchbox_container"
-    class="mx-auto overflow-hidden rounded-lg bg-zinc-50 shadow-xl ring-zinc-900/7.5 sm:max-w-xl opacity-100 scale-100"
+    class="overflow-hidden mx-auto rounded-lg shadow-xl opacity-100 scale-100 bg-zinc-50 ring-zinc-900/7.5 sm:max-w-xl"
     phx-hook="SearchBar"
     phx-key="escape"
   >
@@ -48,12 +48,12 @@
       aria-expanded={@meanings != []}
     >
       <form action="" novalidate="" role="search" phx-change="get_suggestions">
-        <div class="relative flex h-12 group">
+        <div class="flex relative h-12 group">
           <svg
             viewBox="0 0 20 20"
             fill="none"
             aria-hidden="true"
-            class="absolute top-0 w-5 h-full pointer-events-none left-3 stroke-zinc-500"
+            class="absolute top-0 left-3 w-5 h-full pointer-events-none stroke-zinc-500"
           >
             <path
               stroke-linecap="round"
@@ -88,7 +88,7 @@
 
         <ul
           :if={@meanings != []}
-          class="overflow-y-auto text-sm leading-6 border-t divide-y rounded-b-lg divide-slate-200 border-slate-200"
+          class="overflow-y-auto text-sm leading-6 rounded-b-lg border-t divide-y divide-slate-200 border-slate-200"
           id="searchbox__results_list"
           role="listbox"
         >
@@ -100,7 +100,7 @@
                 class="block p-4 hover:bg-slate-100 focus:outline-none focus:bg-slate-100 focus:text-sky-800"
               >
 
-              <div class="flex items-start justify-between md:flex-row">
+              <div class="flex justify-between items-start md:flex-row">
                 <!-- Word Section -->
                 <div class="w-full text-sm md:w-1/3">
                   <%= place.english_entry %>

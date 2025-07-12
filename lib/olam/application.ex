@@ -12,10 +12,11 @@ defmodule Olam.Application do
       Olam.Repo,
       {DNSCluster, query: Application.get_env(:olam, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Olam.PubSub},
+      # Start the dictionary cache early in the supervision tree
+      # Olam.DictCache,
+      Olam.FastDictCache,
       # Start the Finch HTTP client for sending emails
       {Finch, name: Olam.Finch},
-      # Start a worker by calling: Olam.Worker.start_link(arg)
-      # {Olam.Worker, arg},
       # Start to serve requests, typically the last entry
       OlamWeb.Endpoint
     ]
