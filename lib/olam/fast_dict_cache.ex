@@ -21,9 +21,10 @@ defmodule Olam.FastDictCache do
 
     :ets.select(@table_name, [
       {{{:prefix, :"$1"}, :"$2"},
-       [{:andalso, {:>=, {:byte_size, :"$1"}, byte_size(prefix_lower)},
-         {:==, {:binary_part, :"$1", 0, byte_size(prefix_lower)}, prefix_lower}}],
-       [:"$2"]}
+       [
+         {:andalso, {:>=, {:byte_size, :"$1"}, byte_size(prefix_lower)},
+          {:==, {:binary_part, :"$1", 0, byte_size(prefix_lower)}, prefix_lower}}
+       ], [:"$2"]}
     ])
     |> Seqfuzz.filter(prefix, fn x -> x.english_entry end)
     |> Enum.take(10)
@@ -32,9 +33,10 @@ defmodule Olam.FastDictCache do
   # MODERATE: Full fuzzy search (only when needed)
   def search_fuzzy(word, limit \\ 5) do
     # Get all entries using select (faster than tab2list)
-    all_entries = :ets.select(@table_name, [
-      {{{:index, :_}, :"$1"}, [], [:"$1"]}
-    ])
+    all_entries =
+      :ets.select(@table_name, [
+        {{{:index, :_}, :"$1"}, [], [:"$1"]}
+      ])
 
     Seqfuzz.filter(all_entries, word, fn x -> x.english_entry end)
     |> Enum.take(limit)
@@ -50,9 +52,12 @@ defmodule Olam.FastDictCache do
     # Forum-recommended configuration for read performance
     :ets.new(@table_name, [
       :named_table,
-      :bag,  # Multiple indexing strategies
-      :protected,  # As recommended in forum
-      read_concurrency: true,  # Critical for performance
+      # Multiple indexing strategies
+      :bag,
+      # As recommended in forum
+      :protected,
+      # Critical for performance
+      read_concurrency: true,
       write_concurrency: false
     ])
 
@@ -76,7 +81,8 @@ defmodule Olam.FastDictCache do
       english_lower = String.downcase(english)
 
       # 1. Exact lookup (fastest)
-      :ets.insert(@table_name, {{:exact, english_lower}, entry}) |> IO.inspect(label: "insert exact")
+      :ets.insert(@table_name, {{:exact, english_lower}, entry})
+      |> IO.inspect(label: "insert exact")
 
       # 2. Index for fuzzy search
       :ets.insert(@table_name, {{:index, index}, entry})

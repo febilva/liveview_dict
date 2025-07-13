@@ -12,6 +12,7 @@ defmodule Olam.Dict do
       {:error, :cache_not_ready} ->
         # Fallback to original implementation
         fallback_search(word)
+
       results ->
         results
     end

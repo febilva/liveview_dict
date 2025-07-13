@@ -4,7 +4,6 @@ defmodule OlamWeb.HomeLive do
   def mount(_params, _session, socket) do
     socket = assign(socket, :meanings, [])
 
-
     {:ok, assign(socket, :form, to_form(%{}))}
   end
 
@@ -37,12 +36,11 @@ defmodule OlamWeb.HomeLive do
         malayalam_definition: "ശരിയായ സ്ഥാനത്തിൽ"
       }
     ]
+
     socket =
       socket
       |> assign(:meanings, meanings)
       |> assign(:form, to_form(%{search: search}))
-
-
 
     {:noreply, socket}
   end

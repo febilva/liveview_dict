@@ -12,7 +12,6 @@ defmodule OlamWeb.TestLive do
   def handle_event("get_suggestions", %{"search" => search}, socket) do
     meanings = Olam.Dict.search(search)
 
-
     socket =
       socket
       |> assign(:meanings, meanings)
@@ -57,6 +56,4 @@ defmodule OlamWeb.TestLive do
   #   IO.inspect(english_word_or_letter)
   #   {:ok, assign(socket, :show_meanings_model, true)}
   # end
-
-
 end
