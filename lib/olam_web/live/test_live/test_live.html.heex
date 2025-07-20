@@ -1,29 +1,5 @@
-<%!-- <div class="block flex-auto max-w-xs">
-  <button
-    type="button"
-    class="hidden text-gray-500 bg-white hover:ring-gray-500 ring-gray-300 h-8 w-full items-center gap-2 rounded-md pl-2 pr-3 text-sm ring-1 transition lg:flex focus:[&:not(:focus-visible)]:outline-none"
-    phx-click={open_modal()}
-  >
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" class="w-5 h-5 stroke-current">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M12.01 12a4.25 4.25 0 1 0-6.02-6 4.25 4.25 0 0 0 6.02 6Zm0 0 3.24 3.25"
-      >
-      </path>
-    </svg>
-    Find something...
-  </button>
-</div> --%>
 
-<%!-- <div
-  id="searchbar-dialog"
-  class="fixed inset-0 z-50"
-  role="dialog"
-  aria-modal="true"
-  phx-window-keydown={hide_modal()}
-  phx-key="escape"
-> --%>
+
 <div class="fixed inset-0 opacity-100 backdrop-blur-sm bg-zinc-400/25"></div>
 
 <div class="fixed inset-0 overflow-y-auto px-4 py-14 sm:py-20 sm:px-6 md:py-32 lg:px-8 lg:py-[15vh]">
@@ -31,10 +7,6 @@
     നിള
   </h1>
   <h3 class="pt-3 pb-5 text-2xl text-center text-zinc-500 font-malayalam">മലയാളം നിഘണ്ടു</h3>
-  <%= @show_meanings_modal %>
-  <.modal show={@show_meanings_modal} id="confirm-modal">
-    This is a modal.
-  </.modal>
   <div
     id="searchbox_container"
     class="overflow-hidden mx-auto rounded-lg shadow-xl opacity-100 scale-100 bg-zinc-50 ring-zinc-900/7.5 sm:max-w-xl"
@@ -92,27 +64,29 @@
           id="searchbox__results_list"
           role="listbox"
         >
-          <%= for place <- @meanings do %>
+          <%= for {english_entry, meanings_list} <- @meanings do %>
             <li>
               <.link
                 phx-click="show-meaning"
-                phx-value-english-entry={place.english_entry}
+                phx-value-english-entry={english_entry}
                 class="block p-4 hover:bg-slate-100 focus:outline-none focus:bg-slate-100 focus:text-sky-800"
               >
                 <div class="flex justify-between items-start md:flex-row">
                   <!-- Word Section -->
                   <div class="w-full text-sm md:w-1/3">
-                    <%= place.english_entry %>
+                    <%= english_entry %>
                   </div>
                   <!-- Meaning Section -->
                   <div class="w-full text-sm text-gray-600 md:w-2/3 font-malayalam">
-                    <%!-- <%= render_meaning(place, @expanded_meanings) %> --%>
                     <span class="text-sm text-gray-500 font-malayalam">
-                      <%= place.malayalam_definition %>
+                      <%= for entry <- meanings_list do %>
+                        <ul class="list-disc flex space-x-4">
+                          <li><%= entry.malayalam_definition %></li>
+                        </ul>
+                      <% end %>
                     </span>
                   </div>
                 </div>
-                <%!-- <%= place.english_entry %> --%>
               </.link>
             </li>
           <% end %>
@@ -121,21 +95,3 @@
     </div>
   </div>
 </div>
-<%!-- <.live_component module={OlamWeb.MeaningList} id="meaning_list" /> --%>
-<%!-- </div> --%>
-
-<%!-- <div id="modal" class="modal">
-  My Modal
-</div>
-
-<button phx-click={JS.show(to: "#modal", transition: "fade-in")}>
-  show modal
-</button>
-
-<button phx-click={JS.hide(to: "#modal", transition: "fade-out")}>
-  hide modal
-</button>
-
-<button phx-click={JS.toggle(to: "#modal", in: "fade-in", out: "fade-out")}>
-  toggle modal
-</button> --%>

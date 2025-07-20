@@ -26,8 +26,9 @@ defmodule Olam.FastDictCache do
           {:==, {:binary_part, :"$1", 0, byte_size(prefix_lower)}, prefix_lower}}
        ], [:"$2"]}
     ])
-    |> Seqfuzz.filter(prefix, fn x -> x.english_entry end)
-    |> Enum.take(10)
+    |> Enum.group_by(fn x -> x.english_entry end)
+    |> Seqfuzz.filter(prefix, fn {english_entry, _entries} -> english_entry end)
+    |> Enum.take(5)
   end
 
   # MODERATE: Full fuzzy search (only when needed)
