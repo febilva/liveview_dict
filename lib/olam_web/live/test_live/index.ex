@@ -19,6 +19,11 @@ defmodule OlamWeb.TestLive do
     {:noreply, socket}
   end
 
+  def handle_event("clear_search", _params, socket) do
+    socket = assign(socket, :meanings, [])
+    {:noreply, socket}
+  end
+
   def open_modal(js \\ %JS{}) do
     js
     |> JS.show(

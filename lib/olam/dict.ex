@@ -7,6 +7,10 @@ defmodule Olam.Dict do
   Search for English words with fuzzy matching.
   Falls back to file-based search if cache is not ready.
   """
+  def search(%{"query" => ""}) do
+    []
+  end
+
   def search(%{"query" => word}) do
     case Olam.FastDictCache.search_prefix(word) do
       {:error, :cache_not_ready} ->
