@@ -1,243 +1,128 @@
-<.flash_group flash={@flash} />
-<%!-- <div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem]"> --%>
-<%!--   <h1>hi</h1> --%>
-<%!-- </div> --%>
-<div class="px-4 py-10 sm:px-6 sm:py-28 lg:px-8 xl:px-28 xl:py-32 ">
-  <div class="max-w-xl mx-auto lg:mx-0">
-    <%!-- <h1 class="flex items-center mt-10 text-sm font-semibold leading-6 text-brand"> --%>
-    <%!-- phoenix framework --%>
-    <%!-- <small class="bg-brand/5 text-[0.8125rem] ml-3 rounded-full px-2 font-medium leading-6"> --%>
-    <%!--   v<%= application.spec(:phoenix, :vsn) %> --%>
-    <%!-- </small> --%>
-    <%!-- </h1> --%>
-    <p
-      id="title"
-      class="text-[2rem] mt-4 font-semibold leading-10 tracking-tighter text-zinc-900 text-balance"
-    >
-      OLAM
-    </p>
-    <%!-- # search form --%>
-    <.simple_form
-      for={@form}
-      phx-change="get_suggestions"
-      phx-submit="search"
-      id="dict-search"
-      class="flex-auto rounded-lg appearance-none bg-transparent pl-10 text-zinc-900 outline-none focus:outline-none border-slate-200 focus:border-slate-200 focus:ring-0 focus:shadow-none placeholder:text-zinc-500 focus:w-full focus:flex-none sm:text-sm [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden [&::-webkit-search-results-button]:hidden [&::-webkit-search-results-decoration]:hidden pr-4 "
-    >
-      <%!-- <.input
-        field={@form[:search]}
-        label="Search"
-           value=""
-        style={
-          @meanings != [] &&
-            "border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none"
-        }
-      /> --%>
-      <.input
-        field={@form[:search]}
-        id="search-input"
-        label="Search"
-        class="flex-auto rounded-lg appearance-none bg-transparent pl-10 text-zinc-900 outline-none focus:outline-none border-slate-200 focus:border-slate-200 focus:ring-0 focus:shadow-none placeholder:text-zinc-500 focus:w-full focus:flex-none sm:text-sm [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden [&::-webkit-search-results-button]:hidden [&::-webkit-search-results-decoration]:hidden pr-4"
-        style={
-          @meanings != [] &&
-            "border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none"
-        }
-        aria-autocomplete="both"
-        aria-controls="searchbox__results_list"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="off"
-        enterkeyhint="search"
-        spellcheck="false"
-        placeholder="Find something..."
-        type="search"
-        value=""
-        tabindex="0"
-      />
-      <:actions>
-        <.button>Search</.button>
-      </:actions>
-      <ul
-        :if={@meanings != []}
-        class="overflow-y-auto text-sm leading-6 border-t divide-y rounded-b-lg divide-slate-200 border-slate-200"
-        id="searchbox__results_list"
-        role="listbox"
-      >
-        <%= for place <- @meanings do %>
-          <li id={"#{place.english_entry}"}>
-            <.link
-              navigate={~p"/places/#{place.english_entry}"}
-              class="block p-4 hover:bg-slate-100 focus:outline-none focus:bg-slate-100 focus:text-sky-800"
-            >
-              <%= place.english_entry %>
-            </.link>
-          </li>
-        <% end %>
-      </ul>
-    </.simple_form>
 
-    <p class="mt-4 text-base leading-7 text-zinc-600">
-      <%!-- <%= @meanigs %> --%>
-    </p>
-    <div class="flex">
-      <div class="w-full sm:w-auto">
-        <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-4 sm:grid-cols-3">
-          <%!-- <a
-            href="https://hexdocs.pm/phoenix/overview.html"
-            class="relative px-6 py-4 text-sm font-semibold leading-6 group rounded-2xl text-zinc-900 sm:py-6"
+
+<div class="fixed inset-0 opacity-100 backdrop-blur-sm bg-zinc-400/25"></div>
+
+<div class="fixed inset-0 overflow-y-auto px-4 py-14 sm:py-20 sm:px-6 md:py-32 lg:px-8 lg:py-[15vh]">
+  <h1 class="text-7xl font-extrabold text-center text-green-800 font-malayalam">
+    നിള
+  </h1>
+  <h3 class="pt-3 pb-5 text-2xl text-center text-zinc-500 font-malayalam">മലയാളം നിഘണ്ടു</h3>
+  <div
+    id="searchbox_container"
+    class="overflow-hidden mx-auto rounded-lg shadow-xl opacity-100 scale-100 bg-zinc-50 ring-zinc-900/7.5 sm:max-w-xl"
+    phx-hook="SearchBar"
+    phx-key="escape"
+  >
+    <div
+      role="combobox"
+      aria-haspopup="listbox"
+      phx-click-away={hide_modal()}
+      aria-expanded={@meanings != []}
+    >
+      <form action="" novalidate="" role="search" phx-change="get_suggestions">
+        <div class="flex relative h-12 group">
+          <svg
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+            class="absolute top-0 left-3 w-5 h-full pointer-events-none stroke-zinc-500"
           >
-            <span class="absolute inset-0 transition rounded-2xl bg-zinc-50 group-hover:bg-zinc-100 sm:group-hover:scale-105">
-            </span>
-            <span class="relative flex items-center gap-4 sm:flex-col">
-              <svg viewbox="0 0 24 24" fill="none" aria-hidden="true" class="w-6 h-6">
-                <path d="m12 4 10-2v18l-10 2v4z" fill="#18181b" fill-opacity=".15" />
-                <path
-                  d="m12 4 2 2v18l10 2m0-18v18m0-18 10-2v18l-10 2"
-                  stroke="#18181b"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              guides &amp; docs
-            </span>
-          </a> --%>
-          <%!-- <a
-            href="https://github.com/phoenixframework/phoenix"
-            class="relative px-6 py-4 text-sm font-semibold leading-6 group rounded-2xl text-zinc-900 sm:py-6"
-          >
-            <span class="absolute inset-0 transition rounded-2xl bg-zinc-50 group-hover:bg-zinc-100 sm:group-hover:scale-105">
-            </span>
-            <span class="relative flex items-center gap-4 sm:flex-col">
-              <svg viewbox="0 0 24 24" aria-hidden="true" class="w-6 h-6">
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="m12 0c5.37 0 0 5.506 0 12.303c0 5.445 3.435 10.043 8.205 11.674.6.107.825-.262.825-.585 0-.292-.015-1.261-.015-2.291c6 21.67 5.22 20.346 4.98 19.654c-.135-.354-.72-1.446-1.23-1.738-.42-.23-1.02-.8-.015-.815.945-.015 1.62.892 1.845 1.261 1.08 1.86 2.805 1.338 3.495 1.015.105-.8.42-1.338.765-1.645-2.67-.308-5.46-1.37-5.46-6.075 0-1.338.465-2.446 1.23-3.307-.12-.308-.54-1.569.12-3.26 0 0 1.005-.323 3.3 1.26.96-.276 1.98-.415 3-.415s2.04.139 3 .416c2.295-1.6 3.3-1.261 3.3-1.261.66 1.691.24 2.952.12 3.26.765.861 1.23 1.953 1.23 3.307 0 4.721-2.805 5.767-5.475 6.075.435.384.81 1.122.81 2.276 0 1.645-.015 2.968-.015 3.383 0 .323.225.707.825.585a12.047 12.047 0 0 0 5.919-4.489a12.536 12.536 0 0 0 24 12.304c24 5.505 18.63 0 12 0z"
-                  fill="#18181b"
-                />
-              </svg>
-              source code
-            </span>
-          </a> --%>
-          <%!-- <a --%>
-          <%!--   href={"https://github.com/phoenixframework/phoenix/blob/v#{application.spec(:phoenix, :vsn)}/changelog.md"} --%>
-          <%!--   class="relative px-6 py-4 text-sm font-semibold leading-6 group rounded-2xl text-zinc-900 sm:py-6" --%>
-          <%!-- > --%>
-          <%!--   <span class="absolute inset-0 transition rounded-2xl bg-zinc-50 group-hover:bg-zinc-100 sm:group-hover:scale-105"> --%>
-          <%!--   </span> --%>
-          <%!--   <span class="relative flex items-center gap-4 sm:flex-col"> --%>
-          <%!--     <svg viewbox="0 0 24 24" fill="none" aria-hidden="true" class="w-6 h-6"> --%>
-          <%!--       <path --%>
-          <%!--         d="m12 1v6m12 17v6" --%>
-          <%!--         stroke="#18181b" --%>
-          <%!--         stroke-width="2" --%>
-          <%!--         stroke-linecap="round" --%>
-          <%!--         stroke-linejoin="round" --%>
-          <%!--       /> --%>
-          <%!--       <circle --%>
-          <%!--         cx="12" --%>
-          <%!--         cy="12" --%>
-          <%!--         r="4" --%>
-          <%!--         fill="#18181b" --%>
-          <%!--         fill-opacity=".15" --%>
-          <%!--         stroke="#18181b" --%>
-          <%!--         stroke-width="2" --%>
-          <%!--         stroke-linecap="round" --%>
-          <%!--         stroke-linejoin="round" --%>
-          <%!--       /> --%>
-          <%!--     </svg> --%>
-          <%!--     changelog --%>
-          <%!--   </span> --%>
-          <%!-- </a> --%>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12.01 12a4.25 4.25 0 1 0-6.02-6 4.25 4.25 0 0 0 6.02 6Zm0 0 3.24 3.25"
+            >
+            </path>
+          </svg>
+
+          <input
+            id="search-input"
+            name="search[query]"
+            class="flex-auto rounded-lg appearance-none bg-transparent pl-10 text-zinc-900 outline-none focus:outline-none border-b-4 border-slate-200 focus:border-none focus:ring-0 focus:shadow-none placeholder:text-zinc-500 focus:w-full focus:flex-none sm:text-sm [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden [&::-webkit-search-results-button]:hidden [&::-webkit-search-results-decoration]:hidden pr-4"
+            style={
+              @meanings != [] &&
+                "border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none"
+            }
+            aria-autocomplete="both"
+            aria-controls="searchbox__results_list"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            enterkeyhint="search"
+            spellcheck="false"
+            placeholder="Find something..."
+            type="search"
+            value=""
+            tabindex="0"
+            autofocus=""
+          />
         </div>
-        <div class="grid grid-cols-1 mt-10 text-sm leading-6 gap-y-4 text-zinc-700 sm:grid-cols-2">
-          <div>
-            <a
-              href="https://twitter.com/elixirphoenix"
-              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
-            >
-              <svg
-                viewbox="0 0 16 16"
-                aria-hidden="true"
-                class="w-4 h-4 fill-zinc-400 group-hover:fill-zinc-600"
+
+        <ul
+          :if={@meanings != []}
+          class="overflow-y-auto text-sm leading-6 rounded-b-lg border-t divide-y divide-slate-200 border-slate-200"
+          id="searchbox__results_list"
+          role="listbox"
+        >
+          <%= for {english_entry, meanings_list} <- @meanings do %>
+            <li>
+              <.link
+                phx-click="show-meaning"
+                phx-value-english-entry={english_entry}
+                class="block p-4 hover:bg-slate-100 focus:outline-none focus:bg-slate-100 focus:text-sky-800"
               >
-                <path d="m5.403 14c5.283 0 8.172-4.617 8.172-8.62 0-.131 0-.262-.008-.391a6.033 6.033 0 0 0 15 3.419a5.503 5.503 0 0 1-1.65.477 3.018 3.018 0 0 0 1.263-1.676 5.579 5.579 0 0 1-1.824.736 2.832 2.832 0 0 0-1.63-.916 2.746 2.746 0 0 0-1.821.319a2.973 2.973 0 0 0 8.076 3.78a3.185 3.185 0 0 0-.182 1.938 7.826 7.826 0 0 1-3.279-.918 8.253 8.253 0 0 1-2.64-2.247 3.176 3.176 0 0 0-.315 2.208 3.037 3.037 0 0 0 1.203 1.836a2.739 2.739 0 0 1 1.56 6.22v.038c0 .7.23 1.377.65 1.919.42.54 1.004.912 1.654 1.05-.423.122-.866.14-1.297.052.184.602.541 1.129 1.022 1.506a2.78 2.78 0 0 0 1.662.598 5.656 5.656 0 0 1-2.007 1.074a5.475 5.475 0 0 1 1 12.64a7.827 7.827 0 0 0 4.403 1.358" />
-              </svg>
-              follow on twitter
-            </a>
-          </div>
-          <div>
-            <a
-              href="https://elixirforum.com"
-              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
-            >
-              <svg
-                viewbox="0 0 16 16"
-                aria-hidden="true"
-                class="w-4 h-4 fill-zinc-400 group-hover:fill-zinc-600"
-              >
-                <path d="m8 13.833c3.866 0 7-2.873 7-6.416c15 3.873 11.866 1 8 1s1 3.873 1 7.417c0 1.081.292 2.1.808 2.995.606 1.05.806 2.399.086 3.375l-.208.283c-.285.386-.01.905.465.85.852-.098 2.048-.318 3.137-.81a3.717 3.717 0 0 1 1.91-.318c.263.027.53.041.802.041z" />
-              </svg>
-              discuss on the elixir forum
-            </a>
-          </div>
-          <div>
-            <a
-              href="https://web.libera.chat/#elixir"
-              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
-            >
-              <svg
-                viewbox="0 0 16 16"
-                aria-hidden="true"
-                class="w-4 h-4 fill-zinc-400 group-hover:fill-zinc-600"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="m6.356 2.007a.75.75 0 0 1 .637.849l-1.5 10.5a.75.75 0 1 1-1.485-.212l1.5-10.5a.75.75 0 0 1 .848-.637zm11.356 2.008a.75.75 0 0 1 .637.848l-1.5 10.5a.75.75 0 0 1-1.485-.212l1.5-10.5a.75.75 0 0 1 .848-.636z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="m14 5.25a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1 0-1.5h9.5a.75.75 0 0 1 .75.75zm13 10.75a.75.75 0 0 1-.75.75h-9.5a.75.75 0 0 1 0-1.5h9.5a.75.75 0 0 1 .75.75z"
-                />
-              </svg>
-              chat on libera irc
-            </a>
-          </div>
-          <div>
-            <a
-              href="https://discord.gg/elixir"
-              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
-            >
-              <svg
-                viewbox="0 0 16 16"
-                aria-hidden="true"
-                class="w-4 h-4 fill-zinc-400 group-hover:fill-zinc-600"
-              >
-                <path d="m13.545 2.995c-1.02-.46-2.114-.8-3.257-.994a.05.05 0 0 0-.052.024c-.141.246-.297.567-.406.82a12.377 12.377 0 0 0-3.658 0 8.238 8.238 0 0 0-.412-.82.052.052 0 0 0-.052-.024 13.315 13.315 0 0 0-3.257.994.046.046 0 0 0-.021.018c.356 6.063-.213 9.036.066 11.973c.001.015.01.029.02.038a13.353 13.353 0 0 0 3.996 1.987.052.052 0 0 0 .056-.018c.308-.414.582-.85.818-1.309a.05.05 0 0 0-.028-.069 8.808 8.808 0 0 1-1.248-.585.05.05 0 0 1-.005-.084c.084-.062.168-.126.248-.191a.05.05 0 0 1 .051-.007c2.619 1.176 5.454 1.176 8.041 0a.05.05 0 0 1 .053.006c.08.065.164.13.248.192a.05.05 0 0 1-.004.084c-.399.23-.813.423-1.249.585a.05.05 0 0 0-.027.07c.24.457.514.893.817 1.307a.051.051 0 0 0 .056.019 13.31 13.31 0 0 0 4.001-1.987.05.05 0 0 0 .021-.037c.334-3.396-.559-6.345-2.365-8.96a.04.04 0 0 0-.021-.02zm-8.198 7.19c-.789 0-1.438-.712-1.438-1.587 0-.874.637-1.586 1.438-1.586.807 0 1.45.718 1.438 1.586 0 .875-.637 1.587-1.438 1.587zm5.316 0c-.788 0-1.438-.712-1.438-1.587 0-.874.637-1.586 1.438-1.586.807 0 1.45.718 1.438 1.586 0 .875-.63 1.587-1.438 1.587z" />
-              </svg>
-              join our discord server
-            </a>
-          </div>
-          <div>
-            <a
-              href="https://fly.io/docs/elixir/getting-started/"
-              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
-            >
-              <svg
-                viewbox="0 0 20 20"
-                aria-hidden="true"
-                class="w-4 h-4 fill-zinc-400 group-hover:fill-zinc-600"
-              >
-                <path d="m1 12.5a4.5 4.5 0 005.5 17h15a4 4 0 001.866-7.539 3.504 3.504 0 00-4.504-4.272a4.5 4.5 0 004.06 8.235 4.502 4.502 0 001 12.5z" />
-              </svg>
-              deploy your application
-            </a>
-          </div>
-        </div>
-      </div>
+                <div class="flex justify-between items-start md:flex-row">
+                  <!-- Word Section -->
+                  <div class="w-full text-sm md:w-1/3">
+                    <%= english_entry %>
+                  </div>
+                  <!-- Meaning Section -->
+                  <div class="w-full text-sm text-gray-600 md:w-2/3 font-malayalam">
+                    <span class="text-sm text-gray-500 font-malayalam">
+                      <%= for entry <- meanings_list do %>
+                        <ul class="list-disc flex space-x-4">
+                          <li><%= entry.malayalam_definition %></li>
+                        </ul>
+                      <% end %>
+                    </span>
+                  </div>
+                </div>
+              </.link>
+            </li>
+          <% end %>
+        </ul>
+      </form>
     </div>
   </div>
 </div>
+
+
+  <!-- Attribution Section for ODbL Compliance -->
+  <div class="mt-8 max-w-2xl mx-auto text-center fixed bottom-0 left-0 right-0">
+    <div class="bg-white/80 backdrop-blur-sm rounded-lg p-4 border border-gray-200/50 shadow-sm">
+      <div class="text-center">
+        <p class="text-xs text-gray-600 leading-relaxed">
+          Dictionary data is provided under the
+          <a
+            href="https://opendatacommons.org/licenses/odbl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-600 hover:text-blue-800 underline"
+          >
+            Open Data Commons Open Database License (ODbL)
+          </a>
+        </p>
+        <p class="text-xs text-gray-500 mt-1">
+          Data source attribution: <span class="font-medium"> Malayalam Dictionary</span> |
+          <a
+            href="https://opendatacommons.org/licenses/odbl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-600 hover:text-gray-800 underline"
+          >
+            License Details
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>

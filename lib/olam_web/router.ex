@@ -17,9 +17,7 @@ defmodule OlamWeb.Router do
   scope "/", OlamWeb do
     pipe_through :browser
 
-    get "/learn", PageController, :home
     live "/", HomeLive
-    live "/test", TestLive
   end
 
   # Other scopes may use custom stacks.
