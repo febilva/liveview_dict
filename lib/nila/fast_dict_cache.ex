@@ -1,7 +1,7 @@
 defmodule Olam.FastDictCache do
   use GenServer
 
-  @table_name :olam_dict_cache
+  @table_name :nila_dict_cache
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)

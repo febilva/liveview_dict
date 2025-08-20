@@ -3,7 +3,7 @@ defmodule Olam.MixProject do
 
   def project do
     [
-      app: :olam,
+      app: :nila,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -77,10 +77,10 @@ defmodule Olam.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind olam", "esbuild olam"],
+      "assets.build": ["tailwind nila", "esbuild nila"],
       "assets.deploy": [
-        "tailwind olam --minify",
-        "esbuild olam --minify",
+        "tailwind nila --minify",
+        "esbuild nila --minify",
         "phx.digest"
       ]
     ]

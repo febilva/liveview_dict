@@ -52,23 +52,23 @@ defmodule OlamWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("olam.repo.query.total_time",
+      summary("nila.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("olam.repo.query.decode_time",
+      summary("nila.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("olam.repo.query.query_time",
+      summary("nila.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("olam.repo.query.queue_time",
+      summary("nila.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("olam.repo.query.idle_time",
+      summary("nila.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"

@@ -7,12 +7,12 @@
 # General application configuration
 import Config
 
-config :olam,
+config :nila,
   ecto_repos: [Olam.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :olam, OlamWeb.Endpoint,
+config :nila, OlamWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
@@ -29,12 +29,12 @@ config :olam, OlamWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :olam, Olam.Mailer, adapter: Swoosh.Adapters.Local
+config :nila, Olam.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
-  olam: [
+  nila: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
@@ -44,7 +44,7 @@ config :esbuild,
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "3.4.3",
-  olam: [
+  nila: [
     args: ~w(
       --config=tailwind.config.js
       --input=css/app.css

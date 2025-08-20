@@ -10,7 +10,7 @@ defmodule Olam.Application do
     children = [
       OlamWeb.Telemetry,
       # Olam.Repo,
-      {DNSCluster, query: Application.get_env(:olam, :dns_cluster_query) || :ignore},
+      {DNSCluster, query: Application.get_env(:nila, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Olam.PubSub},
       # Start the dictionary cache early in the supervision tree
       # Olam.DictCache,
