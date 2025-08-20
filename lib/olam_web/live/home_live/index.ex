@@ -4,6 +4,7 @@ defmodule OlamWeb.HomeLive do
   def mount(_params, _session, socket) do
     socket =
       assign(socket, :meanings, [])
+      |> assign(:show_attribution, false)
 
     {:ok, assign(socket, :form, to_form(%{})), layout: false}
   end
@@ -22,6 +23,10 @@ defmodule OlamWeb.HomeLive do
   def handle_event("clear_search", _params, socket) do
     socket = assign(socket, :meanings, [])
     {:noreply, socket}
+  end
+
+  def handle_event("toggle_attribution", _params, socket) do
+    {:noreply, assign(socket, :show_attribution, !socket.assigns.show_attribution)}
   end
 
   def open_modal(js \\ %JS{}) do

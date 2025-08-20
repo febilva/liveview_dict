@@ -1,8 +1,6 @@
-
-
 <div class="fixed inset-0 opacity-100 backdrop-blur-sm bg-zinc-400/25"></div>
 
-<div class="fixed inset-0 overflow-y-auto px-4 py-14 sm:py-20 sm:px-6 md:py-32 lg:px-8 lg:py-[15vh]">
+<div class="fixed inset-0 overflow-y-auto px-4 py-14 sm:py-20 sm:px-6 md:py-32 lg:px-8 lg:py-[5vh]">
   <h1 class="text-7xl font-extrabold text-center text-green-800 font-malayalam">
     നിള
   </h1>
@@ -71,17 +69,17 @@
                 phx-value-english-entry={english_entry}
                 class="block p-4 hover:bg-slate-100 focus:outline-none focus:bg-slate-100 focus:text-sky-800"
               >
-                <div class="flex justify-between items-start md:flex-row">
+                <div class="flex flex-col md:gap-8 md:flex-row md:justify-between md:items-start">
                   <!-- Word Section -->
-                  <div class="w-full text-sm md:w-1/3">
+                  <div class="w-full text-sm font-medium break-words md:w-1/3">
                     <%= english_entry %>
                   </div>
                   <!-- Meaning Section -->
                   <div class="w-full text-sm text-gray-600 md:w-2/3 font-malayalam">
                     <span class="text-sm text-gray-500 font-malayalam">
                       <%= for entry <- meanings_list do %>
-                        <ul class="list-disc flex space-x-4">
-                          <li><%= entry.malayalam_definition %></li>
+                        <ul class="ml-4 list-disc">
+                          <li class="break-words"><%= entry.malayalam_definition %></li>
                         </ul>
                       <% end %>
                     </span>
@@ -95,30 +93,53 @@
     </div>
   </div>
 </div>
+<!-- Attribution Section for ODbL Compliance -->
+<div class="fixed right-4 bottom-4 w-64">
+  <!-- Toggle Button -->
+  <div class="mb-2 text-right">
+    <button
+      phx-click="toggle_attribution"
+      class="inline-flex gap-2 items-center px-3 py-1.5 rounded-full border shadow-sm transition-colors bg-white/80 border-gray-200/50 hover:bg-gray-50"
+    >
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        class={"h-3 w-3 text-gray-500 transition-transform #{if @show_attribution, do: "", else: "-rotate-90"}"}
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      </svg>
+      <span class="text-xs text-gray-600">Attribution</span>
+    </button>
+  </div>
 
-
-  <!-- Attribution Section for ODbL Compliance -->
-  <div class="mt-8 max-w-2xl mx-auto text-center fixed bottom-0 left-0 right-0">
-    <div class="bg-white/80 backdrop-blur-sm rounded-lg p-4 border border-gray-200/50 shadow-sm">
-      <div class="text-center">
-        <p class="text-xs text-gray-600 leading-relaxed">
+  <!-- Attribution Content -->
+  <div 
+    class={"transition-all duration-300 ease-in-out transform #{if @show_attribution, do: "opacity-100 translate-x-0", else: "opacity-0 translate-x-full pointer-events-none"}"}
+  >
+    <div class="p-4 rounded-lg border shadow-md backdrop-blur-sm bg-white/90 border-gray-200/50">
+      <div class="text-left">
+        <p class="text-xs leading-relaxed text-gray-600">
           Dictionary data is provided under the
           <a
             href="https://opendatacommons.org/licenses/odbl/"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-blue-600 hover:text-blue-800 underline"
+            class="text-blue-600 underline hover:text-blue-800"
           >
             Open Data Commons Open Database License (ODbL)
           </a>
         </p>
-        <p class="text-xs text-gray-500 mt-1">
-          Data source attribution: <span class="font-medium"> Malayalam Dictionary</span> |
+        <p class="mt-2 text-xs text-gray-500">
+          Data source attribution: <span class="font-medium">Malayalam Dictionary</span>
+        </p>
+        <p class="mt-1 text-xs">
           <a
             href="https://opendatacommons.org/licenses/odbl/"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-gray-600 hover:text-gray-800 underline"
+            class="text-gray-600 underline hover:text-gray-800"
           >
             License Details
           </a>
@@ -126,3 +147,4 @@
       </div>
     </div>
   </div>
+</div>
