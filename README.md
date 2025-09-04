@@ -16,3 +16,31 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+
+
+Deploy command 
+
+vi ~/nila/.env.production
+sudo systemctl restart nila
+
+logs:
+  sudo systemctl status nila
+  sudo journalctl -u nila -f
+  sudo journalctl -u nila -n 50 --no-pager
+
+
+  curl http://localhost:4000
+
+
+
+  scp -i secet.pem setup_ec2.sh ubuntu@ip:~/
+
+
+# Reload and restart
+sudo systemctl daemon-reload
+sudo systemctl restart nila
+
+# Check status
+sudo systemctl status nila
