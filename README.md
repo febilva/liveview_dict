@@ -1,4 +1,4 @@
-# Olam
+# NILA dictonary
 
 To start your Phoenix server:
 
