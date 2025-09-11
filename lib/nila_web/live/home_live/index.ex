@@ -1,12 +1,59 @@
 defmodule OlamWeb.HomeLive do
   use OlamWeb, :live_view
+  alias OlamWeb.SeoHelpers
 
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    # Check if there's a search query in URL params
+    search_query = params["q"]
+
     socket =
-      assign(socket, :meanings, [])
+      socket
+      |> assign(:meanings, [])
       |> assign(:show_attribution, false)
+      |> assign(:current_search, search_query)
 
-    {:ok, assign(socket, :form, to_form(%{})), layout: false}
+    # If there's a search query, perform the search and set SEO data
+    socket = if search_query && String.trim(search_query) != "" do
+      meanings = Olam.Dict.search(%{"query" => search_query})
+
+      socket
+      |> assign(:meanings, meanings)
+      |> assign(:form, to_form(%{search: %{query: search_query}}))
+      |> assign_seo_data(search_query, meanings)
+    else
+      socket
+      |> assign(:form, to_form(%{}))
+      |> assign_default_seo_data()
+    end
+
+    {:ok, socket, layout: false}
+  end
+
+  defp assign_seo_data(socket, search_query, meanings) do
+    # Get first result for SEO
+    first_result = case meanings do
+      [{english_word, meanings_list} | _] -> {english_word, meanings_list}
+      [] -> {search_query, []}
+      _ -> {search_query, []}
+    end
+
+    {english_word, meanings_list} = first_result
+
+    socket
+    |> assign(:page_title, SeoHelpers.word_page_title(english_word, meanings_list))
+    |> assign(:meta_description, SeoHelpers.word_meta_description(english_word, meanings_list))
+    |> assign(:canonical_url, "https://niladict.in?q=#{URI.encode(search_query)}")
+    |> assign(:current_word, english_word)
+    |> assign(:structured_data, if(length(meanings_list) > 0, do: SeoHelpers.dictionary_entry_json_ld(english_word, meanings_list), else: nil))
+  end
+
+  defp assign_default_seo_data(socket) do
+    socket
+    |> assign(:page_title, "Nila Malayalam Dictionary")
+    |> assign(:meta_description, "Free online English to Malayalam dictionary. നിള മലയാളം നിഘണ്ടു - Find Malayalam meanings for English words. Perfect for Kerala students, professionals and Malayalam learners worldwide.")
+    |> assign(:canonical_url, "https://niladict.in")
+    |> assign(:current_word, nil)
+    |> assign(:structured_data, nil)
   end
 
   def handle_event("get_suggestions", %{"search" => search}, socket) do

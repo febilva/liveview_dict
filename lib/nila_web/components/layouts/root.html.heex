@@ -4,16 +4,92 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix="Malayalam Dictionary">
-      <%= assigns[:page_title] || "Nila" %>
+    
+    <!-- SEO Meta Tags -->
+    <.live_title suffix=" - Free English Malayalam Dictionary Online | നിള മലയാളം നിഘണ്ടു">
+      <%= assigns[:page_title] || "Nila Malayalam Dictionary" %>
     </.live_title>
+    
+    <meta name="description" content={assigns[:meta_description] || "Free online English to Malayalam dictionary. നിള മലയാളം നിഘണ്ടു - Find Malayalam meanings for English words. Perfect for Kerala students, professionals and Malayalam learners worldwide."} />
+    
+    <meta name="keywords" content="Malayalam dictionary, English Malayalam dictionary, നിള മലയാളം നിഘണ്ടു, Malayalam translation, English to Malayalam, Kerala dictionary, Malayalam meanings, Malayalam words, ഇംഗ്ലീഷ് മലയാളം നിഘണ്ടു, മലയാളം അർത്ഥം" />
+    
+    <meta name="author" content="Nila Dictionary" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English, Malayalam" />
+    <meta name="geo.region" content="IN-KL" />
+    <meta name="geo.country" content="IN" />
+    <meta name="geo.placename" content="Kerala, India" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content={assigns[:og_title] || "Nila - Free English Malayalam Dictionary | നിള മലയാളം നിഘണ്ടു"} />
+    <meta property="og:description" content={assigns[:og_description] || "Free online English to Malayalam dictionary with comprehensive word meanings. Perfect for students, professionals and Malayalam learners."} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={assigns[:canonical_url] || "https://niladict.in"} />
+    <meta property="og:image" content="https://niladict.in/images/nila-dictionary-og.png" />
+    <meta property="og:image:alt" content="Nila Malayalam Dictionary - English to Malayalam translation" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ml_IN" />
+    <meta property="og:site_name" content="Nila Malayalam Dictionary" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={assigns[:twitter_title] || "Nila - Free English Malayalam Dictionary"} />
+    <meta name="twitter:description" content={assigns[:twitter_description] || "Free online English to Malayalam dictionary. Find Malayalam meanings for English words instantly."} />
+    <meta name="twitter:image" content="https://niladict.in/images/nila-dictionary-twitter.png" />
+    <meta name="twitter:image:alt" content="Nila Malayalam Dictionary" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={assigns[:canonical_url] || "https://niladict.in"} />
+    
+    <!-- Alternate language versions -->
+    <link rel="alternate" hreflang="en" href="https://niladict.in" />
+    <link rel="alternate" hreflang="ml" href="https://niladict.in" />
+    <link rel="alternate" hreflang="en-in" href="https://niladict.in" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Nila Malayalam Dictionary",
+        "alternateName": "നിള മലയാളം നിഘണ്ടു",
+        "url": "https://niladict.in",
+        "description": "Free online English to Malayalam dictionary with comprehensive word meanings and translations",
+        "inLanguage": ["en", "ml"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://niladict.in/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Nila Dictionary",
+          "url": "https://niladict.in"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Malayalam speakers, English learners, Students in Kerala"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Malayalam Language Dictionary",
+          "description": "English to Malayalam translation and dictionary service"
+        }
+      }
+    </script>
+    
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="bg-white">
     <%= @inner_content %>

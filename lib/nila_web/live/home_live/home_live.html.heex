@@ -1,10 +1,38 @@
 <div class="fixed inset-0 opacity-100 backdrop-blur-sm bg-zinc-400/25"></div>
 
 <div class="fixed inset-0 overflow-y-auto px-4 py-4 sm:px-6 md:py-32 lg:px-8 lg:py-[5vh]">
+  <!-- Main heading optimized for SEO -->
   <h1 class="text-4xl font-extrabold text-center text-green-800 sm:text-2lg md:text-7xl font-malayalam">
     നിള
   </h1>
-  <h3 class="pt-1 pb-5 text-sm text-center sm:text-lg md:text-2xl text-zinc-500 font-malayalam">മലയാളം നിഘണ്ടു</h3>
+  <h2 class="pt-1 pb-2 text-sm text-center sm:text-lg md:text-2xl text-zinc-500 font-malayalam">മലയാളം നിഘണ്ടു</h2>
+  
+  <!-- SEO-friendly subtitle in English -->
+  <p class="text-center text-xs sm:text-sm md:text-base text-zinc-600 mb-4 max-w-2xl mx-auto">
+    Free English to Malayalam Dictionary | ഇംഗ്ലീഷ് മലയാളം നിഘണ്ടു
+  </p>
+  
+  <!-- Hidden SEO content for search engines -->
+  <div class="sr-only">
+    <h3>Free Online English Malayalam Dictionary</h3>
+    <p>
+      Nila Dictionary provides free English to Malayalam translation and word meanings. 
+      Perfect for Kerala students, Malayalam learners, and professionals who need accurate 
+      Malayalam translations. Our dictionary includes comprehensive word definitions, 
+      parts of speech, and usage examples in Malayalam script.
+    </p>
+    <p>
+      നിള മലയാളം നിഘണ്ടു - ഇംഗ്ലീഷ് വാക്കുകളുടെ മലയാളം അർത്ഥം കണ്ടെത്താൻ സൗജന്യ ഓൺലൈൻ നിഘണ്ടു. 
+      കേരളത്തിലെ വിദ്യാർത്ഥികൾക്കും മലയാളം പഠിക്കുന്നവർക്കും അനുയോജ്യം.
+    </p>
+    <ul>
+      <li>Free Malayalam dictionary online</li>
+      <li>English to Malayalam translation</li>
+      <li>Malayalam word meanings</li>
+      <li>Dictionary for Kerala students</li>
+      <li>Malayalam language learning tool</li>
+    </ul>
+  </div>
   <div
     id="searchbox_container"
     class="overflow-hidden mx-auto rounded-lg shadow-xl opacity-100 scale-100 bg-zinc-50 ring-zinc-900/7.5 sm:max-w-xl"
@@ -43,17 +71,23 @@
             }
             aria-autocomplete="both"
             aria-controls="searchbox__results_list"
+            aria-label="Search English words for Malayalam meanings"
+            aria-describedby="search-description"
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"
             enterkeyhint="search"
             spellcheck="false"
-            placeholder="Find something..."
+            placeholder="Search English words... (e.g., 'love', 'water', 'book')"
             type="search"
             value=""
             tabindex="0"
             autofocus=""
           />
+          <div id="search-description" class="sr-only">
+            Search for English words to find their Malayalam meanings and translations. 
+            Type any English word to see its definition in Malayalam script.
+          </div>
         </div>
 
         <ul
@@ -93,6 +127,23 @@
     </div>
   </div>
 </div>
+<!-- Structured Data for Dictionary Entries -->
+<%= if assigns[:structured_data] do %>
+  <script type="application/ld+json">
+    <%= @structured_data %>
+  </script>
+<% end %>
+
+<!-- FAQ Structured Data -->
+<script type="application/ld+json">
+  <%= OlamWeb.SeoHelpers.faq_json_ld() %>
+</script>
+
+<!-- Breadcrumb Structured Data -->
+<script type="application/ld+json">
+  <%= OlamWeb.SeoHelpers.breadcrumb_json_ld(@current_word) %>
+</script>
+
 <!-- Attribution Section for ODbL Compliance -->
   <!-- Attribution Footer - Fixed at bottom of screen -->
 <div class="fixed right-0 bottom-0 left-0 z-10">

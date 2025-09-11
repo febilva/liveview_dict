@@ -18,6 +18,10 @@ defmodule OlamWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
+
+    # SEO routes
+    get "/sitemap.xml", SeoController, :sitemap
+    get "/robots.txt", SeoController, :robots
   end
 
   # Other scopes may use custom stacks.
